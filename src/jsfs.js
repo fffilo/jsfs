@@ -1,23 +1,24 @@
 ;(function() {
-	window.jsfs = {
 
-		/**
-		 * Get element property or execute method.
-		 *
-		 * @param  {Object} element
-		 * @param  {Array}  propList
-		 * @return {Mixed}
-		 */
-		_prop: function(element, propList) {
-			for (var i = 0; i < propList.length; i++) {
-				if (typeof element[propList[i]] === "function") {
-					return element[propList[i]]();
-				}
-				else if (typeof element[propList[i]] !== "undefined") {
-					return element[propList[i]];
-				}
+	/**
+	 * Get element property or execute method.
+	 *
+	 * @param  {Object} element
+	 * @param  {Array}  propList
+	 * @return {Mixed}
+	 */
+	var _prop = function(element, propList) {
+		for (var i = 0; i < propList.length; i++) {
+			if (typeof element[propList[i]] === "function") {
+				return element[propList[i]]();
 			}
-		},
+			else if (typeof element[propList[i]] !== "undefined") {
+				return element[propList[i]];
+			}
+		}
+	}
+
+	window.jsfs = {
 
 		/**
 		 * The Document.fullscreen read-only property reports
@@ -29,7 +30,7 @@
 		 * @return {Boolean}
 		 */
 		fullscreen: function() {
-			return this._prop(document, [ "fullscreen", "webkitIsFullScreen", "mozFullScreen" ]);
+			return _prop(document, [ "fullscreen", "webkitIsFullScreen", "mozFullScreen" ]);
 		},
 
 		/**
@@ -46,7 +47,7 @@
 		 * @return {Boolean}
 		 */
 		enabled: function() {
-			return this._prop(document, [ "fullscreenEnabled", "webkitFullscreenEnabled", "mozFullScreenEnabled", "msFullscreenEnabled" ]);
+			return _prop(document, [ "fullscreenEnabled", "webkitFullscreenEnabled", "mozFullScreenEnabled", "msFullscreenEnabled" ]);
 		},
 
 		/**
@@ -60,7 +61,7 @@
 		 * @return {Mixed}
 		 */
 		element: function() {
-			return this._prop(document, [ "fullscreenElement", "webkitFullscreenElement", "mozFullScreenElement", "msFullscreenElement" ]);
+			return _prop(document, [ "fullscreenElement", "webkitFullscreenElement", "mozFullScreenElement", "msFullscreenElement" ]);
 		},
 
 		/**
@@ -75,7 +76,7 @@
 		 * @return {Void}
 		 */
 		exit: function() {
-			return this._prop(document, [ "exitFullscreen", "webkitExitFullscreen", "mozCancelFullScreen", "msExitFullscreen" ]);
+			return _prop(document, [ "exitFullscreen", "webkitExitFullscreen", "mozCancelFullScreen", "msExitFullscreen" ]);
 		},
 
 		/**
@@ -89,7 +90,7 @@
 		 * @return {Void}
 		 */
 		request: function(element) {
-			return this._prop(element || document.body, [ "requestFullscreen", "webkitRequestFullscreen", "mozRequestFullScreen", "msRequestFullscreen" ]);
+			return _prop(element || document.body, [ "requestFullscreen", "webkitRequestFullscreen", "mozRequestFullScreen", "msRequestFullscreen" ]);
 		},
 
 		/**
@@ -107,4 +108,5 @@
 		}
 
 	}
+
 })();
